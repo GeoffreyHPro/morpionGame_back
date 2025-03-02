@@ -81,6 +81,10 @@
     		<scope>runtime</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
+		<dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>
             <version>1.6.2</version>
