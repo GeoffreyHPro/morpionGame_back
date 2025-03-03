@@ -1,13 +1,13 @@
 package com.example.demo.configuration.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.messaging.SessionConnectEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
-import com.example.demo.model.message.ChatMessage;
-import com.example.demo.model.message.MessageType;
+import com.example.demo.service.RoomManager;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,21 +17,19 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class WebSocketEventListener {
 
-    private final SimpMessageSendingOperations messageTemplate;
+    @Autowired
+    private final RoomManager roomManager;
 
     @EventListener
-    public void handleWebSocketDisconnectListener(
-            SessionDisconnectEvent event) {
-        StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
-        String username = (String) headerAccessor.getSessionAttributes().get("username");
-        if (username != null) {
-            log.info(username);
-            var chatMessage = ChatMessage.builder()
-                    .type(MessageType.LEAVE)
-                    .sender(username)
-                    .build();
+    public void handleWebSocketConnectListener(SessionConnectEvent event) {
+        StompHeaderAccessor accessor = StompHeaderAccessor.wrap(event.getMessage());
+        String sessionId = accessor.getSessionId();
+        System.out.println("Nouvelle connexion: " + sessionId);
+    }
 
-            messageTemplate.convertAndSend("/topic/public", chatMessage);
-        }
+    @EventListener
+    public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
+        String sessionId = event.getSessionId();
+        System.out.println("Déconnexion: " + sessionId);
     }
 }
