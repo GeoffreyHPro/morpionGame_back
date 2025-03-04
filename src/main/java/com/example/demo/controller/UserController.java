@@ -36,11 +36,11 @@ public class UserController {
     PasswordEncoder passwordEncoder;
 
     @GetMapping
-    public ResponseEntity getUsers(Authentication authentication) {
+    public ResponseEntity<?> getUsers(Authentication authentication) {
 
         try {
             User user = userRepo.findByEmail(authentication.getName());
-            
+
             UserResponse r = new UserResponse(user.getUsername(), "bonjour");
 
             return ResponseEntity.status(200).body(r);
