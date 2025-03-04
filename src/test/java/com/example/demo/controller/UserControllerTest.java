@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import com.example.demo.controller.rest.UserController;
 import com.example.demo.model.User;
 import com.example.demo.repository.userRepository.UserRepository;
 import com.example.demo.repository.userRepository.UserRepositoryImpl;

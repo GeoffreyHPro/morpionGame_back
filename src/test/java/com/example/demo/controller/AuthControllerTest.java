@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.example.demo.configuration.SecurityConfig;
+import com.example.demo.controller.rest.AuthController;
 import com.example.demo.payload.EmailPasswordRequest;
 import com.example.demo.service.JWTUtils;
 import com.example.demo.service.UserService;

@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.web;
 
 import java.util.Map;
 import java.util.Set;
@@ -16,7 +16,7 @@ public class RoomController {
 
     @Autowired
     private RoomManager roomManager;
-    
+
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 

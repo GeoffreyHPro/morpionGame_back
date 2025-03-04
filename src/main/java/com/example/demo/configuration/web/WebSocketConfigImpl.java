@@ -20,7 +20,7 @@ public class WebSocketConfigImpl implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.setApplicationDestinationPrefixes("/app");
-        config.enableSimpleBroker("/topic", "/room");
+        config.enableSimpleBroker("/topic", "/room", "/user");
     }
 
 }
