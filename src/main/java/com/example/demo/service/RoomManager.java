@@ -10,6 +10,12 @@ import org.springframework.stereotype.Service;
 public class RoomManager {
     private Map<String, Set<String>> rooms = new ConcurrentHashMap<>();
 
+    public RoomManager(){
+        this.joinRoom("gregeg","mario");
+        this.joinRoom("gregeg","sonic");
+        this.joinRoom("2","luigi");
+    }
+
     public void joinRoom(String roomId, String username) {
         if (!rooms.containsKey(roomId)) {
             rooms.put(roomId, ConcurrentHashMap.newKeySet());

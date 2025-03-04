@@ -1,13 +1,10 @@
 package com.example.demo.configuration.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
-
-import com.example.demo.service.RoomManager;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,9 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class WebSocketEventListener {
-
-    @Autowired
-    private final RoomManager roomManager;
 
     @EventListener
     public void handleWebSocketConnectListener(SessionConnectEvent event) {

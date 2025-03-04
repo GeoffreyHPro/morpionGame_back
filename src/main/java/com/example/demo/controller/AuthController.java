@@ -47,7 +47,7 @@ public class AuthController {
 
     @Operation(summary = "Create new user", description = "Create new user with unique email and a password")
     @PostMapping(path = "/signUp")
-    public ResponseEntity get(@RequestBody EmailPasswordRequest content) {
+    public ResponseEntity<?> get(@RequestBody EmailPasswordRequest content) {
 
         if (content.getEmail().isEmpty()) {
             return ResponseEntity.status(300).body("please give an email");

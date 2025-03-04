@@ -16,6 +16,7 @@ public class RoomController {
 
     @Autowired
     private RoomManager roomManager;
+    
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
@@ -27,6 +28,7 @@ public class RoomController {
         String username = payload.get("username");
         roomManager.joinRoom(roomId, username);
         messagingTemplate.convertAndSend("/room/" + roomId, username + " a rejoint la room !");
+        messagingTemplate.convertAndSend("/room/list", roomManager.getAllRooms());
     }
 
     @MessageMapping("/room/leave")
