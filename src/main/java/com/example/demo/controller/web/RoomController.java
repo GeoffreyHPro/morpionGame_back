@@ -6,6 +6,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
@@ -21,12 +22,13 @@ public class RoomController {
     private SimpMessagingTemplate messagingTemplate;
 
     @MessageMapping("/room/join")
-    public void joinRoom(Map<String, String> payload) {
-        System.out.println(payload.get("roomId"));
-        System.out.println(payload.get("username"));
+    public void joinRoom(Map<String, String> payload, SimpMessageHeaderAccessor simpMessageHeaderAccessor) {
         String roomId = payload.get("roomId");
         String username = payload.get("username");
         roomManager.joinRoom(roomId, username);
+
+        simpMessageHeaderAccessor.getSessionAttributes().put("roomId", roomId);
+
         messagingTemplate.convertAndSend("/room/" + roomId, username + " a rejoint la room !");
         messagingTemplate.convertAndSend("/room/list", roomManager.getAllRooms());
     }
@@ -37,6 +39,7 @@ public class RoomController {
         String username = payload.get("username");
         roomManager.leaveRoom(roomId, username);
         messagingTemplate.convertAndSend("/room/" + roomId, username + " a quitté la room !");
+        messagingTemplate.convertAndSend("/room/list", roomManager.getAllRooms());
     }
 
     @MessageMapping("/room/message")
