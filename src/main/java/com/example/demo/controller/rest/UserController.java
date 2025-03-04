@@ -3,10 +3,10 @@ package com.example.demo.controller.rest;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.User;
-import com.example.demo.payload.UpdatePassword;
 import com.example.demo.reponses.UserResponse;
 import com.example.demo.repository.userRepository.UserRepository;
 import com.example.demo.repository.userRepository.UserRepositoryImpl;
+import com.example.demo.request.UpdatePassword;
 
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestBody;

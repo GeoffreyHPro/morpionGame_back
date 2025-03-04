@@ -32,7 +32,7 @@ public class WebSocketEventListener {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
         String username = (String) headerAccessor.getSessionAttributes().get("username");
         String sessionId = event.getSessionId();
-        if((String) headerAccessor.getSessionAttributes().get("roomId") != null){
+        if ((String) headerAccessor.getSessionAttributes().get("roomId") != null) {
             roomManager.leaveRoom((String) headerAccessor.getSessionAttributes().get("roomId"), username);
         }
         System.out.println("Déconnexion: " + sessionId + " : " + username);

@@ -1,4 +1,4 @@
-package com.example.demo.payload;
+package com.example.demo.request;
 
 import lombok.Data;
 
@@ -7,7 +7,7 @@ public class EmailPasswordRequest {
     private String email;
     private String password;
 
-    public EmailPasswordRequest(String emailParam, String passworParam){
+    public EmailPasswordRequest(String emailParam, String passworParam) {
         this.email = emailParam;
         this.password = passworParam;
     }
