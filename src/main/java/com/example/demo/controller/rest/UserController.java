@@ -3,10 +3,12 @@ package com.example.demo.controller.rest;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.User;
+import com.example.demo.reponses.MessageResponse;
 import com.example.demo.reponses.UserResponse;
 import com.example.demo.repository.userRepository.UserRepository;
 import com.example.demo.repository.userRepository.UserRepositoryImpl;
 import com.example.demo.request.UpdatePassword;
+import com.example.demo.service.UserService;
 
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,10 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepo;
-
-    @Autowired
-    private UserRepositoryImpl userRepositoryImpl;
+    private UserService userService;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -38,12 +37,10 @@ public class UserController {
     @GetMapping
     public ResponseEntity<?> getUsers(Authentication authentication) {
         try {
-            User user = userRepo.findByEmail(authentication.getName());
-            UserResponse r = new UserResponse(user.getUsername(), user.getPseudo());
-
-            return ResponseEntity.status(200).body(r);
+            User user = userService.loadUserByUsername(authentication.getName());
+            return ResponseEntity.status(200).body(new UserResponse(user.getUsername(), user.getPseudo()));
         } catch (Exception e) {
-            return ResponseEntity.status(400).body("no informations");
+            return ResponseEntity.status(400).body(new MessageResponse("no informations"));
         }
     }
 
@@ -51,9 +48,10 @@ public class UserController {
     public ResponseEntity<String> updateUserPassword(
             Authentication authentication,
             @RequestBody UpdatePassword updatePassword) {
-        User user = userRepo.findByEmail(authentication.getName());
+        User user = userService.loadUserByUsername(authentication.getName());
 
-        userRepositoryImpl.changePassword(user, passwordEncoder.encode(updatePassword.getNewPassword()));
+        // userService.changePassword(user,
+        // passwordEncoder.encode(updatePassword.getNewPassword()));
         return ResponseEntity.status(200).body("Password updated");
     }
 }
