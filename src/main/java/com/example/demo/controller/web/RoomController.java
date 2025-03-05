@@ -10,7 +10,7 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
-import com.example.demo.service.RoomManager;
+import com.example.demo.service.web.RoomManager;
 
 @Controller
 public class RoomController {

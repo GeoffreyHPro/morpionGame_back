@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.example.demo.service.rest;
 
 import com.example.demo.model.User;
 import com.example.demo.reponses.TokenResponse;

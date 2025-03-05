@@ -1,7 +1,8 @@
 package com.example.demo.configuration;
 
-import com.example.demo.service.JWTUtils;
-import com.example.demo.service.UserService;
+import com.example.demo.service.rest.JWTUtils;
+import com.example.demo.service.rest.UserService;
+
 import io.jsonwebtoken.io.IOException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -8,7 +8,7 @@ import com.example.demo.reponses.UserResponse;
 import com.example.demo.repository.userRepository.UserRepository;
 import com.example.demo.repository.userRepository.UserRepositoryImpl;
 import com.example.demo.request.UpdatePassword;
-import com.example.demo.service.UserService;
+import com.example.demo.service.rest.UserService;
 
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestBody;

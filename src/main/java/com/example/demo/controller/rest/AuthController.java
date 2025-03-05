@@ -16,7 +16,7 @@ import com.example.demo.reponses.MessageResponse;
 import com.example.demo.reponses.TokenResponse;
 import com.example.demo.request.CreateUserRequest;
 import com.example.demo.request.EmailPasswordRequest;
-import com.example.demo.service.UserService;
+import com.example.demo.service.rest.UserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
