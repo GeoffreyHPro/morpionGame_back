@@ -30,5 +30,4 @@ public class UserRepositoryImpl implements CustomUserRepository {
         this.em.merge(user);
         return true;
     }
-
 }
