@@ -37,10 +37,8 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<?> getUsers(Authentication authentication) {
-
         try {
             User user = userRepo.findByEmail(authentication.getName());
-
             UserResponse r = new UserResponse(user.getUsername(), "bonjour");
 
             return ResponseEntity.status(200).body(r);
@@ -58,5 +56,4 @@ public class UserController {
         userRepositoryImpl.changePassword(user, passwordEncoder.encode(updatePassword.getNewPassword()));
         return ResponseEntity.status(200).body("Password updated");
     }
-
 }
