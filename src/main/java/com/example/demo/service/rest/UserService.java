@@ -4,7 +4,7 @@ import com.example.demo.model.User;
 import com.example.demo.reponses.TokenResponse;
 import com.example.demo.repository.userRepository.UserRepository;
 import com.example.demo.repository.userRepository.UserRepositoryImpl;
-import com.example.demo.request.EmailPasswordRequest;
+import com.example.demo.request.rest.EmailPasswordRequest;
 import com.example.exception.AlreadyExistException;
 
 import org.springframework.beans.factory.annotation.Autowired;

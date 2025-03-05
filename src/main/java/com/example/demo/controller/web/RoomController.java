@@ -10,6 +10,7 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
+import com.example.demo.request.web.RoomIdUsernameRequest;
 import com.example.demo.service.web.RoomManager;
 
 @Controller
@@ -22,23 +23,19 @@ public class RoomController {
     private SimpMessagingTemplate messagingTemplate;
 
     @MessageMapping("/room/join")
-    public void joinRoom(Map<String, String> payload, SimpMessageHeaderAccessor simpMessageHeaderAccessor) {
-        String roomId = payload.get("roomId");
-        String username = payload.get("username");
-        roomManager.joinRoom(roomId, username);
+    public void joinRoom(RoomIdUsernameRequest userRoomRequest, SimpMessageHeaderAccessor simpMessageHeaderAccessor) {
+        roomManager.joinRoom(userRoomRequest.getRoomId(), userRoomRequest.getUsername());
 
-        simpMessageHeaderAccessor.getSessionAttributes().put("roomId", roomId);
+        simpMessageHeaderAccessor.getSessionAttributes().put("roomId", userRoomRequest.getRoomId());
 
-        messagingTemplate.convertAndSend("/room/" + roomId, username + " a rejoint la room !");
+        messagingTemplate.convertAndSend("/room/" + userRoomRequest.getRoomId(), userRoomRequest.getUsername() + " a rejoint la room !");
         messagingTemplate.convertAndSend("/room/list", roomManager.getAllRooms());
     }
 
     @MessageMapping("/room/leave")
-    public void leaveRoom(Map<String, String> payload) {
-        String roomId = payload.get("roomId");
-        String username = payload.get("username");
-        roomManager.leaveRoom(roomId, username);
-        messagingTemplate.convertAndSend("/room/" + roomId, username + " a quitté la room !");
+    public void leaveRoom(RoomIdUsernameRequest userRoomRequest) {
+        roomManager.leaveRoom(userRoomRequest.getRoomId(), userRoomRequest.getUsername());
+        messagingTemplate.convertAndSend("/room/" + userRoomRequest.getRoomId(), userRoomRequest.getUsername() + " a quitté la room !");
         messagingTemplate.convertAndSend("/room/list", roomManager.getAllRooms());
     }
 

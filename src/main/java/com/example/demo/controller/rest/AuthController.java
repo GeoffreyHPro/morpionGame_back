@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.model.User;
 import com.example.demo.reponses.MessageResponse;
 import com.example.demo.reponses.TokenResponse;
-import com.example.demo.request.CreateUserRequest;
-import com.example.demo.request.EmailPasswordRequest;
+import com.example.demo.request.rest.CreateUserRequest;
+import com.example.demo.request.rest.EmailPasswordRequest;
 import com.example.demo.service.rest.UserService;
 
 import io.swagger.annotations.Api;

@@ -1,4 +1,4 @@
-package com.example.demo.request;
+package com.example.demo.request.rest;
 
 import lombok.Data;
 
