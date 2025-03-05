@@ -39,7 +39,7 @@ public class UserController {
     public ResponseEntity<?> getUsers(Authentication authentication) {
         try {
             User user = userRepo.findByEmail(authentication.getName());
-            UserResponse r = new UserResponse(user.getUsername(), "bonjour");
+            UserResponse r = new UserResponse(user.getUsername(), user.getPseudo());
 
             return ResponseEntity.status(200).body(r);
         } catch (Exception e) {
