@@ -22,10 +22,18 @@ public class User implements UserDetails {
     private int id;
     private String email;
     private String password;
+    private String username;
     private String role;
 
     public User() {
 
+    }
+
+    public User(String email, String password, String username) {
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.role = "USER";
     }
 
     public User(String email, String password) {
@@ -47,6 +55,10 @@ public class User implements UserDetails {
     @Override
     public String getUsername() {
         return email;
+    }
+
+    public String getPseudo() {
+        return this.username;
     }
 
     public String getRole() {
@@ -73,11 +85,11 @@ public class User implements UserDetails {
         return true;
     }
 
-    public void setId(int id){
-        this.id = id;    
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void updatePassword(String newPassword){
+    public void updatePassword(String newPassword) {
         this.password = newPassword;
     }
 

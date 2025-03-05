@@ -1,14 +1,14 @@
-package com.example.demo.reponses.payload;
+package com.example.demo.reponses;
 
 import lombok.Data;
 import lombok.Setter;
 
 @Data
 @Setter
-public class MessagePayload {
-    
+public class MessageResponse {
     private String message;
-    public MessagePayload(String message){
+
+    public MessageResponse(String message) {
         this.message = message;
     }
 }

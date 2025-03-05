@@ -20,8 +20,8 @@ import com.example.demo.controller.rest.UserController;
 import com.example.demo.model.User;
 import com.example.demo.repository.userRepository.UserRepository;
 import com.example.demo.repository.userRepository.UserRepositoryImpl;
-import com.example.demo.service.JWTUtils;
-import com.example.demo.service.UserService;
+import com.example.demo.service.rest.JWTUtils;
+import com.example.demo.service.rest.UserService;
 
 @ExtendWith(MockitoExtension.class)
 @WebMvcTest(UserController.class)

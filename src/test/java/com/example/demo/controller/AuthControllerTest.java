@@ -20,9 +20,9 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.example.demo.configuration.SecurityConfig;
 import com.example.demo.controller.rest.AuthController;
-import com.example.demo.payload.EmailPasswordRequest;
-import com.example.demo.service.JWTUtils;
-import com.example.demo.service.UserService;
+import com.example.demo.request.rest.EmailPasswordRequest;
+import com.example.demo.service.rest.JWTUtils;
+import com.example.demo.service.rest.UserService;
 import com.example.demo.shared.RequestBodyAsString;
 
 @ExtendWith(MockitoExtension.class)

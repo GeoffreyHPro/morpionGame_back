@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
-import com.example.demo.service.RoomManager;
+import com.example.demo.service.web.RoomManager;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ public class WebSocketEventListener {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
         String username = (String) headerAccessor.getSessionAttributes().get("username");
         String sessionId = event.getSessionId();
-        if((String) headerAccessor.getSessionAttributes().get("roomId") != null){
+        if ((String) headerAccessor.getSessionAttributes().get("roomId") != null) {
             roomManager.leaveRoom((String) headerAccessor.getSessionAttributes().get("roomId"), username);
         }
         System.out.println("Déconnexion: " + sessionId + " : " + username);
