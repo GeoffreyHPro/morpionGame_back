@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
@@ -28,23 +29,23 @@ public class RoomController {
 
         simpMessageHeaderAccessor.getSessionAttributes().put("roomId", userRoomRequest.getRoomId());
 
-        messagingTemplate.convertAndSend("/room/" + userRoomRequest.getRoomId(), userRoomRequest.getUsername() + " a rejoint la room !");
+        messagingTemplate.convertAndSend("/room/" + userRoomRequest.getRoomId(),
+                userRoomRequest.getUsername() + " a rejoint la room !");
         messagingTemplate.convertAndSend("/room/list", roomManager.getAllRooms());
     }
 
     @MessageMapping("/room/leave")
     public void leaveRoom(RoomIdUsernameRequest userRoomRequest) {
         roomManager.leaveRoom(userRoomRequest.getRoomId(), userRoomRequest.getUsername());
-        messagingTemplate.convertAndSend("/room/" + userRoomRequest.getRoomId(), userRoomRequest.getUsername() + " a quitté la room !");
+        messagingTemplate.convertAndSend("/room/" + userRoomRequest.getRoomId(),
+                userRoomRequest.getUsername() + " a quitté la room !");
         messagingTemplate.convertAndSend("/room/list", roomManager.getAllRooms());
     }
 
-    @MessageMapping("/room/message")
-    public void sendMessage(Map<String, String> payload) {
-        String roomId = payload.get("roomId");
-        String username = payload.get("username");
-        String message = payload.get("message");
-        messagingTemplate.convertAndSend("/room/" + roomId, username + " : " + message);
+    @MessageMapping("/room/{roomId}/message")
+    public void sendMessage(Map<String, String> payload, @DestinationVariable String roomId) {
+        System.out.println(payload.get("message"));
+        messagingTemplate.convertAndSend("/room/" + roomId + "/message", payload);
     }
 
     @MessageMapping("/room/list")
