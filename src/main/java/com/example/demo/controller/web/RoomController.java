@@ -34,6 +34,13 @@ public class RoomController {
         messagingTemplate.convertAndSend("/room/list", roomManager.getAllRooms());
     }
 
+    @MessageMapping("/room/create")
+    public void createRoom(RoomIdUsernameRequest userRoomRequest) {
+        roomManager.joinRoom(userRoomRequest.getRoomId(), userRoomRequest.getUsername());
+        System.out.println(userRoomRequest.getRoomId() + userRoomRequest.getUsername());
+        messagingTemplate.convertAndSend("/room/list", roomManager.getAllRooms());
+    }
+
     @MessageMapping("/room/leave")
     public void leaveRoom(RoomIdUsernameRequest userRoomRequest) {
         roomManager.leaveRoom(userRoomRequest.getRoomId(), userRoomRequest.getUsername());
