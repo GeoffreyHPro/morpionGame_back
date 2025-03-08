@@ -3,17 +3,17 @@ package com.example.demo.service.web;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-
 import org.springframework.stereotype.Service;
 
 @Service
 public class RoomManager {
+
     private Map<String, Set<String>> rooms = new ConcurrentHashMap<>();
 
-    public RoomManager(){
-        this.joinRoom("gregeg","mario");
-        this.joinRoom("gregeg","sonic");
-        this.joinRoom("2","luigi");
+    public RoomManager() {
+        this.joinRoom("gregeg", "mario");
+        this.joinRoom("gregeg", "sonic");
+        this.joinRoom("2", "luigi");
     }
 
     public void joinRoom(String roomId, String username) {
