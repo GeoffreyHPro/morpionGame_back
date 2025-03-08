@@ -19,6 +19,14 @@ public class Game {
         this.usernameTwoIsReady = false;
     }
 
+    public String getUsername1() {
+        return username1;
+    }
+
+    public String getUsername2() {
+        return username2;
+    }
+
     public void setUsernameIsReady(String username) {
         if (username.equals(username1)) {
             this.usernameOneIsReady = true;
