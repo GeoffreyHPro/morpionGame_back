@@ -12,6 +12,7 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
+import com.example.demo.exception.web.UserNotInGameException;
 import com.example.demo.request.web.RoomIdUsernameRequest;
 import com.example.demo.service.web.GameManager;
 import com.example.demo.service.web.RoomManager;
@@ -66,11 +67,24 @@ public class RoomController {
     }
 
     @MessageMapping("/room/{roomId}/game/ready")
-    public void userIsReady(@DestinationVariable String roomId, Map<String, String> payload) {
-        System.out.println(payload.get("username"));
+    public void userIsReady(@DestinationVariable String roomId, Map<String, String> payload)
+            throws UserNotInGameException {
         gameManager.userIsReady(roomId, payload.get("username"));
         if (gameManager.playersAreReady(roomId)) {
             messagingTemplate.convertAndSend("/room/" + roomId + "/game", "game started");
+        }
+    }
+
+    @MessageMapping("/room/{roomId}/game/turn")
+    public void GameTurn(@DestinationVariable String roomId, Map<String, String> payload)
+            throws UserNotInGameException {
+        System.out.println(payload.get("username"));
+        System.out.println(payload.get("type"));
+        try {
+            String usernameTurn = gameManager.turn(roomId, payload.get("x"), payload.get("y"));
+            messagingTemplate.convertAndSend("/room/" + roomId + "/game", payload.get("type"));
+            messagingTemplate.convertAndSend("/room/" + roomId + "/game", "game started");
+        } catch (Exception e) {
         }
     }
 }

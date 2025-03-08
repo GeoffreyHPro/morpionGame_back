@@ -1,4 +1,4 @@
-package com.example.demo.exception;
+package com.example.demo.exception.rest;
 
 public class AlreadyExistException extends Exception {
     public AlreadyExistException() {

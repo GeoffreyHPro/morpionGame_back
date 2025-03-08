@@ -1,5 +1,10 @@
 package com.example.demo.service.web;
 
+import com.example.demo.exception.web.GameEndedException;
+import com.example.demo.exception.web.NotPlayerTurnException;
+import com.example.demo.exception.web.PlayersNotReadyException;
+import com.example.demo.exception.web.UserNotInGameException;
+
 public class Game {
     private StateGame state;
     private String username1;
@@ -27,11 +32,13 @@ public class Game {
         return username2;
     }
 
-    public void setUsernameIsReady(String username) {
+    public void setUsernameIsReady(String username) throws UserNotInGameException {
         if (username.equals(username1)) {
             this.usernameOneIsReady = true;
-        } else {
+        } else if (username.equals(username2)) {
             this.usernameTwoIsReady = true;
+        } else {
+            throw new UserNotInGameException();
         }
     }
 
@@ -39,8 +46,14 @@ public class Game {
         return usernameOneIsReady == usernameTwoIsReady && usernameOneIsReady == true;
     }
 
-    public void startGame() {
-        this.state = StateGame.IN_PROGRESS;
+    public String startGame() throws PlayersNotReadyException {
+        if (PlayersAreReady()) {
+            this.state = StateGame.IN_PROGRESS;
+            this.playerTurn = username1;
+            return playerTurn;
+        } else {
+            throw new PlayersNotReadyException();
+        }
     }
 
     public String getStateGame() {
@@ -51,13 +64,16 @@ public class Game {
         return playerTurn;
     }
 
-    public boolean turn(String username, int xCell, int yCell) {
+    public String turn(String username, int xCell, int yCell) throws NotPlayerTurnException, GameEndedException {
         if (username.equals(this.playerTurn)) {
             this.cells[xCell][yCell] = (username.equals(this.username1) ? 1 : 2);
-            this.playerTurn = (username.equals(username2) ? username2 : username1);
-            return isFinish();
+            this.playerTurn = (username.equals(username2) ? username1 : username2);
+            if (!isFinish()) {
+                return this.playerTurn;
+            }
+            throw new GameEndedException();
         }
-        return false;
+        throw new NotPlayerTurnException();
     }
 
     public int[][] getCells() {
