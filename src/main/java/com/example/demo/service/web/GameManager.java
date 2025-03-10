@@ -19,7 +19,7 @@ public class GameManager {
     }
 
     public void userIsReady(String roomId, String username) throws UserNotInGameException {
-        if (!games.containsKey(roomId)) {
+        if (games.containsKey(roomId)) {
             games.get(roomId).setUsernameIsReady(username);
         }
     }
@@ -33,7 +33,7 @@ public class GameManager {
     }
 
     public boolean playersAreReady(String roomId) {
-        if (!games.containsKey(roomId)) {
+        if (games.containsKey(roomId)) {
             return games.get(roomId).PlayersAreReady();
         }
         return false;
